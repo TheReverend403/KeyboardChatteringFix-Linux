@@ -1,0 +1,10 @@
+[Unit]
+Description=Keyboard Chattering Fix
+
+[Service]
+Restart=on-failure
+WorkingDirectory=/root/KeyboardChatteringFix-Linux
+ExecStart=/root/KeyboardChatteringFix-Linux/venv/bin/python chatterfix.py --threshold 30 /dev/input/by-path/platform-i8042-serio-0-event-kbd
+
+[Install]
+WantedBy=multi-user.target

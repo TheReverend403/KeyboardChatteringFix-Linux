@@ -13,7 +13,7 @@ as two or even more keypresses in rapid succession.
 ## The existing solutions
 
 Apart from buying a new keyboard, there have been ways to deal
-with this problems using software methods. The idea is to filter keypresses
+with these problems using software methods. The idea is to filter keypresses
 that occur faster than a certain threshold. "Keyboard Chattering Fix v 0.0.1"
 is a tool I had been using on Windows for a long time, and these days you also have
 [Keyboard Chatter Blocker](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker),
@@ -48,6 +48,15 @@ Just get the Python script by cloning the repository, or download it directly.
 Of course, you will also need `libevdev` and the Python bindings installed.
 Both can most likely be found in your distribution's repositories.
 
+```
+# Ubuntu/Debian: apt install libevdev
+# Gentoo: emerge -a libevdev
+# Arch: pacman -S libevdev
+python -m venv venv
+source venv/bin/activate
+pip install requirements.txt
+```
+
 If your distribution offers a version of Python that's not exactly recent,
 it might take issue with some of the fancy new language features I'm using.
 So keep that in mind if you have any issues running the script.
@@ -55,7 +64,8 @@ So keep that in mind if you have any issues running the script.
 ## Usage
 
 ```
-# chattering_fix.py /dev/input/by-id/usb-I_One_Gaming_keyboard-event-kbd 30
+source venv/bin/activate
+python chatterfix.py --threshold 30 /dev/input/by-id/usb-I_One_Gaming_keyboard-event-kbd
 ```
 
 Note the need for superuser privileges.
@@ -74,12 +84,14 @@ For reference, if you press the key really fast this delay is around 50 ms.
 Starting the script manually every time doesn't sound like the greatest idea, so
 you should probably consider something that does it for you. The solution I provide
 is a systemd unit file. Copy it to `/etc/systemd/system/`, then enable it with
-`systemctl enable --now chattering_fix`. Don't forget to change the command inside to
+`systemctl enable --now chatterfix`. Don't forget to change the command inside to
 tell the service what id your keyboard has and where the script is located. The script
 should be executable as well.
 
 ## Future plans
 
-For now I'm just hoping this works and my keyboard doesn't chatter.
+~~For now I'm just hoping this works and my keyboard doesn't chatter.~~
+
+It works. -- @TheReverend403
 
 If this is of use to you and you have any suggestions or bug reports feel free to tell me.
