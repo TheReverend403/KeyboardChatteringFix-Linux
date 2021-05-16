@@ -106,7 +106,7 @@ def main(device: Path, threshold: int = 30):
 
     if not os.access(device, os.W_OK):
         logging.error("Cannot write to device.")
-        raise typer.Exit()
+        raise typer.Exit(code=1)
 
     chatterfix = ChatterFix(device=device, threshold=threshold)
     chatterfix.run()
